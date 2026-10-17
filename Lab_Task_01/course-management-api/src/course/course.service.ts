@@ -20,10 +20,10 @@ export class CourseService {
     }
 
     patchCourse(id: string) {
-        return `Patch Course 10 - from Service`;
+        return `Patch Course ${id} - from Service`;
     }
 
     deleteCourse(id: string) {
-        return `Delete Course 10 - from Service `;
+        return `Delete Course ${id} - from Service `;
     }
 }
