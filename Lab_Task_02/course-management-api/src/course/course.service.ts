@@ -1,29 +1,50 @@
 import { Injectable } from '@nestjs/common';
+import { CreateCourseDto } from './dto/create-course.dto.js';
+import { UpdateCourseDto } from './dto/update-course.dto.js';
 
 @Injectable()
 export class CourseService {
     getAllCourses():object
     {
-        return { message: "All courses fetched successfully", data: []};
+        return { message: "All courses fetched successfully",
+             data: []};
     }
     getCourseById(id: string) 
     {
-        return { message: "Course fetched successfully", data: `Get Course with ID: ${id} - from Service` };
+        return { message: "Course fetched successfully", 
+            id: id };
     }
 
-    createCourse() {
-        return { message: "Course created successfully", data: `Create Course - from Service ` };
-    }
+    createCourse(dto: CreateCourseDto) 
+    {
+    return { 
+      message: 'Course created successfully', 
+      data: dto 
+    };
+  }
 
-    updateCourse(id: string){
-        return { message: "Course updated successfully", data: `Update Course ${id} - from Service ` };
-    }
+  updateCourse(id: string, dto: UpdateCourseDto) 
+  {
+        return { 
+        message: 'Course updated successfully', 
+        id: id, 
+        data: dto 
+        };
+  }
 
-    patchCourse(id: string) {
-        return { message: "Course patched successfully", data: `Patch Course ${id} - from Service` };
-    }
+    patchCourse(id: string, dto: UpdateCourseDto) {
+    return { 
+      message: 'Course patched successfully', 
+      id: id, 
+      updatedFields: Object.keys(dto) // list of fields that were updated in the DTO
+    };
+  }
 
-    deleteCourse(id: string) {
-        return { message: "Course deleted successfully", data: `Delete Course ${id} - from Service ` };
+    deleteCourse(id: string) 
+    {
+        return { 
+        message: 'Course deleted successfully', 
+        id: id 
+        };
     }
 }
