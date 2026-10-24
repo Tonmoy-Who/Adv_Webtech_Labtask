@@ -47,4 +47,13 @@ export class CourseService {
         id: id 
         };
     }
+
+    uploadCourseMaterial(id: string, file: Express.Multer.File) {
+    return {
+      message: 'Material uploaded successfully',
+      courseId: id,
+      filename: file.filename,
+      path: file.path,
+    };
+  }
 }
