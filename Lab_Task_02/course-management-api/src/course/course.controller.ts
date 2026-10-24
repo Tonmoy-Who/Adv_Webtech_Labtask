@@ -7,10 +7,15 @@ import {
    Delete,
    Patch,
    Put,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
 } from '@nestjs/common';
 import { CourseService } from './course.service.js';
 import { CreateCourseDto } from './dto/create-course.dto.js';
 import { UpdateCourseDto } from './dto/update-course.dto.js';
+import { FileInterceptor } from '@nestjs/platform-express';//catch the file from the request and pass it to the controller method
+import { diskStorage } from 'multer'; //to store the file in the disk storage
 
 @Controller('course')
 export class CourseController {
@@ -46,7 +51,38 @@ export class CourseController {
   }
 
   //File upload here
-  
+  @Post(':id/upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads', 
+        filename: (req, file, cb) => {
+          const uniqueName = Date.now() + '-' + file.originalname;
+          cb(null, uniqueName);
+        },
+      }),
+      fileFilter: (req, file, cb) => {
+        const allowed = /\.(jpg|jpeg|png|pdf)$/i;
+        if (!file.originalname.match(allowed)) {
+          return cb(
+            new BadRequestException('Only .jpg, .jpeg, .png, .pdf files are allowed!'),
+            false,
+          );
+        }
+        cb(null, true);
+      },
+      limits: { fileSize: 2 * 1024 * 1024 }, 
+    }),
+  )
+  uploadCourseMaterial(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('File is required');
+    }
+    return this.courseService.uploadCourseMaterial(id, file);
+  }
   
 
 }
