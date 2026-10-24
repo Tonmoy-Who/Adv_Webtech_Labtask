@@ -1,12 +1,12 @@
 import { 
-  Body,
   Controller, 
   Get, 
   Param,
-  Post,
-  Delete,
-  Patch,
-  Put,
+   Post ,
+   Body,
+   Delete,
+   Patch,
+   Put,
 } from '@nestjs/common';
 import { CourseService } from './course.service.js';
 import { CreateCourseDto } from './dto/create-course.dto.js';
@@ -16,7 +16,7 @@ import { UpdateCourseDto } from './dto/update-course.dto.js';
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
   @Get()
-  getAllCoursed(){
+  getAllCourses() {
     return this.courseService.getAllCourses();
   }
 
@@ -40,10 +40,13 @@ export class CourseController {
         return this.courseService.patchCourse(id, updateCourseDto);
     }
 
-    @Delete(':id')  
-    deleteCourse(@Param('id') id: string) {
-        return this.courseService.deleteCourse(id);
-    }
+     @Delete(':id')
+  deleteCourse(@Param('id') id: string) {
+    return this.courseService.deleteCourse(id);
+  }
+
+  //File upload here
+  
   
 
 }
