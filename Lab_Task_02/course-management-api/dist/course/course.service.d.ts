@@ -1,0 +1,33 @@
+import { CreateCourseDto } from './dto/create-course.dto.js';
+import { UpdateCourseDto } from './dto/update-course.dto.js';
+export declare class CourseService {
+    getAllCourses(): object;
+    getCourseById(id: string): {
+        message: string;
+        id: string;
+    };
+    createCourse(dto: CreateCourseDto): {
+        message: string;
+        data: CreateCourseDto;
+    };
+    updateCourse(id: string, dto: UpdateCourseDto): {
+        message: string;
+        id: string;
+        data: UpdateCourseDto;
+    };
+    patchCourse(id: string, dto: UpdateCourseDto): {
+        message: string;
+        id: string;
+        updatedFields: string[];
+    };
+    deleteCourse(id: string): {
+        message: string;
+        id: string;
+    };
+    uploadCourseMaterial(id: string, file: Express.Multer.File): {
+        message: string;
+        courseId: string;
+        filename: string;
+        path: string;
+    };
+}
