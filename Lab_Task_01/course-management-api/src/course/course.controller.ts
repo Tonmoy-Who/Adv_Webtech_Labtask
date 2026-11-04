@@ -12,6 +12,7 @@ import { CourseService } from './course.service.js';
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
+<<<<<<< HEAD
   @Get()
   getAllCoursed() {
     return this.courseService.getAllCourses();
@@ -23,6 +24,20 @@ export class CourseController {
   }
 
   @Put()
+=======
+
+  @Get()
+  getAllCourses() {
+    return this.courseService.getAllCourses();
+  }
+
+  @Get(':id')
+  getCourseById(@Param('id') id: string) {
+    return this.courseService.getCourseById(id);
+  }
+
+  @Post()
+>>>>>>> Labtask-1
   createCourse() {
     return this.courseService.createCourse();
   }
@@ -41,4 +56,8 @@ export class CourseController {
   deleteCourse(@Param('id') id: string) {
     return this.courseService.deleteCourse(id);
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> Labtask-1
